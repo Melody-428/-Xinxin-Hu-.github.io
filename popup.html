@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Message Popup</title>
+  <style>
+    body {
+      background: #fffaf0;
+      font-family: 'Prompt', sans-serif;
+      color: #333;
+      text-align: center;
+      padding: 2rem;
+    }
+    .popup-card {
+      background: rgba(255, 235, 150, 0.15);
+      border: 1px solid rgba(255, 235, 150, 0.3);
+      border-radius: 20px;
+      padding: 1.5rem;
+      box-shadow: 0 0 24px rgba(255, 235, 150, 0.4);
+      max-width: 600px;
+      margin: auto;
+    }
+    h2 {
+      color: #ffec8b;
+      text-shadow: 0 0 8px rgba(255, 240, 150, 0.8);
+    }
+    p {
+      font-size: 1.05rem;
+      line-height: 1.6;
+    }
+    .close-btn {
+      margin-top: 1.5rem;
+      padding: 0.7rem 1.2rem;
+      border-radius: 14px;
+      background: rgba(255, 235, 150, 0.25);
+      border: 1px solid rgba(255, 235, 150, 0.5);
+      color: #333;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.25s ease;
+    }
+    .close-btn:hover {
+      background: rgba(255, 235, 150, 0.4);
+    }
+  </style>
+</head>
+<body>
+  <div class="popup-card">
+    <h2>System Message</h2>
+    <p>Your reply has been marked as ‘Low Impact’.<br>
+       It will expire in 3 days unless echoed by others.</p>
+    <p>I stare at it.<br>
+       What if no one echoes?<br>
+       The system flickers, undecided.<br>
+       It leaves me with a question:<br>
+       “Who decides what matters?”</p>
+    <button class="close-btn" onclick="window.close()">Close</button>
+  </div>
+</body>
+</html>

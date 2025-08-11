@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Growth Cycle 9 - Mei's Learning Sequence</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="container">
+    <div class="overlay">
+  <h1 class="welcome">Welcome, Mei.</h1>
+  <p class="subtext">You are now logged into your Growth Cycle 9: Day 143 Learning Sequence.</p>
+  <button id="startBtn">Begin Sequence</button>
+</div>
+
+    <div id="sequence" class="hidden">
+      <div id="textDisplay"></div>
+      <button id="touchBtn" class="hidden">Touch to begin your session</button>
+    </div>
+<audio id="ambientAudio" src="audio/forest.wav" preload="auto" loop></audio>
+
+    <div id="mapExperience" class="hidden">
+      <section class="map-section pavilion-intro">
+  <h2 class="chapter-title">🦝 Red Panda Pavilion - Chapter 1</h2>
+  <h3 class="section-title">KP-01: Red Panda / Memory / Migration</h3>
+  <div class="intro-content">
+    <p class="intro-text">The pavilion smells faintly of rain and dried leaves.<br>
+      A curved surface rises from the ground, soft and glowing—like fur caught in starlight.<br>
+      I approach. The wall detects me. The air thickens slightly. It’s waiting.<br>
+      <span class="system-voice">“Place your hand to begin sensory calibration.”</span>
+    </p>
+    <div class="interaction-creative">
+      <div class="ripple-bg"></div>
+      <div class="interaction-instruction">
+        <span class="interaction-label">Hold to calibrate</span>
+        <span class="interaction-effect">Surface begins to ripple in gentle waves</span>
+      </div>
+    </div>
+    <div class="calibration-result">
+      <p class="system-voice">“Pulse received. Breath: 14/min. Mood: Settled. Curiosity: High.”</p>
+      <p class="system-voice">“You are eligible for open narrative access.”</p>
+    </div>
+  </div>
+</section>
+
+<section class="path-choices">
+        <h3 class="choices-title">Three paths appear:</h3>
+        <div class="choices-grid">
+          <button class="path-card" data-path="elder">
+            <span class="path-name">Elder’s Voice</span>
+            <span class="path-line">“I once followed a red panda’s tracks through mist.”</span>
+          </button>
+          <button class="path-card" data-path="child">
+            <span class="path-name">Child’s Voice</span>
+            <span class="path-line">“I dreamed one lived in my treehouse.”</span>
+          </button>
+          <button class="path-card" data-path="ai">
+            <span class="path-name">AI Archive</span>
+            <span class="path-line">“Red Panda – Ailurus fulgens. Status: Nearly extinct by 2060.”</span>
+          </button>
+        </div>
+        <p id="choiceNote" class="choice-note">
+          I pause. I can only choose one to unlock fully—at least for now.
+        </p>
+      </section>
+
+      
+      <section class="elder-sequence">
+        <div class="peel" id="peel">
+          <div class="peel-cover">
+            <span class="bark-grain"></span>
+          </div>
+          <div class="peel-content">
+            <p class="elder-line">
+              “We used to call them ‘tree-ghosts’… they never made a sound. Only their eyes shimmered.
+              And then one day, they were gone. Like leaves after a storm.”
+            </p>
+
+            
+            <div class="map-canvas">
+              <div class="map-caption">Southern China & Eastern Himalayas (stylised)</div>
+
+              <svg id="migrationMap" viewBox="0 0 800 450" role="img" aria-label="Stylised migration map">
+                
+                <defs>
+                  <radialGradient id="landGlow" cx="50%" cy="50%" r="60%">
+                    <stop offset="0%" stop-color="#ff91dd22"/>
+                    <stop offset="100%" stop-color="transparent"/>
+                  </radialGradient>
+                  <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+                    <feGaussianBlur in="SourceGraphic" stdDeviation="6"/>
+                  </filter>
+                </defs>
+                <rect x="0" y="0" width="800" height="450" fill="url(#landGlow)"/>
+
+                
+                <path id="migPath"
+                      d="M120,360 C220,300 300,280 360,250 430,215 520,200 600,170 650,150 700,130 740,120"
+                      fill="none"
+                      stroke="#ffb7f7"
+                      stroke-width="4"
+                      stroke-linecap="round"
+                      stroke-dasharray="10 10"
+                      filter="url(#soft)"/>
+
+                
+                <path id="migPulse"
+                      d="M120,360 C220,300 300,280 360,250 430,215 520,200 600,170 650,150 700,130 740,120"
+                      fill="none"
+                      stroke="#ffffff"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-dasharray="0 900"
+                      opacity="0.9"/>
+
+                
+                <g class="hotspot" data-frag="A">
+                  <circle cx="360" cy="250" r="14" class="hotspot-ring"/>
+                  <circle cx="360" cy="250" r="24" class="hotspot-hit" />
+                </g>
+                <g class="hotspot" data-frag="B">
+                  <circle cx="620" cy="165" r="14" class="hotspot-ring"/>
+                  <circle cx="620" cy="165" r="24" class="hotspot-hit" />
+                </g>
+              </svg>
+
+              <div id="dragInstruction" class="drag-instruction">
+                Drag your finger along the migration path → trigger embedded story fragments
+              </div>
+
+              <div id="fragmentLog" class="map-fragments">
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      
+      <div id="systemToast" class="system-toast hidden"></div>
+
+      
+      <div id="memoryModal" class="modal hidden" role="dialog" aria-modal="true">
+        <div class="modal-card">
+          <h4 class="modal-title">Emotional resonance detected</h4>
+          <p class="modal-subtitle">Permission to leave a memory granted.</p>
+          <label class="modal-label" for="memoryText">Record voice / text / sound (text for now):</label>
+          <textarea id="memoryText" rows="4" placeholder="I hope someone finds them again."></textarea>
+          <div class="modal-actions">
+            <button id="cancelMemory" class="btn-secondary">Cancel</button>
+            <button id="submitMemory" class="btn-primary">Submit to Archive</button>
+          </div>
+        </div>
+      </div>
+
+      
+      <section id="archive" class="archive hidden">
+        <h3 class="archive-title">AI Archive — New Memory Added</h3>
+        <div class="archive-items" id="archiveItems"></div>
+      </section>
+
+      
+      <div class="next-chapter-wrapper">
+        <button id="nextChapterBtn" class="btn-primary hidden">
+          Touch to enter next chapter
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+<section id="chapter2" class="chapter2 penguin-dome hidden" aria-label="Penguin Dome – Chapter 2">
+  <div class="pd-wrap"><audio id="ambientAudio2" src="audio/chapter2.wav" preload="auto" loop></audio>
+
+    <header class="pd-header">
+      <h2 class="pd-title">🐧 Penguin Dome – Chapter 2</h2>
+      <h3 class="pd-sub">KP-02 – Penguin / Ice / Collapse</h3>
+      <p class="pd-sync">System Sync: KP-02 activated.</p>
+    </header>
+
+    <section class="pd-intro">
+      <p class="pd-lead">
+        I step into the Penguin Dome. It’s colder here—not from temperature, but from memory.<br/>
+        The floor pulses blue under my feet. The walls are ice, but alive. They creak, shimmer, and breathe.
+      </p>
+
+      <section class="pd-motion">
+  <figure class="motion-image" aria-label="Living ice">
+    <svg viewBox="0 0 800 450" class="motion-svg" role="img">
+      <defs>
+        <filter id="iceFlow" x="-20%" y="-20%" width="140%" height="140%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.008 0.02" numOctaves="2" seed="7">
+            <animate attributeName="baseFrequency" dur="12s"
+                     values="0.008 0.02; 0.012 0.028; 0.008 0.02"
+                     repeatCount="indefinite"/>
+          </feTurbulence>
+          <feColorMatrix type="matrix"
+            values="0 0 0 0 0.80
+                    0 0 0 0 0.95
+                    0 0 0 0 1.00
+                    0 0 0 1 0"/>
+          <feGaussianBlur stdDeviation="0.6"/>
+        </filter>
+        <linearGradient id="iceGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%"  stop-color="#0b2b36"/>
+          <stop offset="50%" stop-color="#0a4a59"/>
+          <stop offset="100%" stop-color="#0a2630"/>
+        </linearGradient>
+      </defs>
+      <image href="image/2.jpg" width="100%" height="100%" preserveAspectRatio="xMidYMid slice"/>
+      <g filter="url(#iceFlow)" opacity="0.85">
+      <image href="image/2.jpg" width="100%" height="100%" preserveAspectRatio="xMidYMid slice"/>
+        
+        <path d="M0,320 C200,300 420,350 800,300 L800,450 L0,450 Z" fill="rgba(200,255,255,0.10)"/>
+        <path d="M0,120 C240,160 480,100 800,150 L800,0 L0,0 Z" fill="rgba(200,255,255,0.08)"/>
+      </g>
+    </svg>
+    <figcaption class="motion-cap">Ice memory (procedural)</figcaption>
+  </figure>
+</section>
+      
+      <div class="pd-voice">
+        <div class="voice-mixer" id="voiceMixer">
+          <div class="voice-pane voice-science">
+            <div class="voice-label">Voice 1 — Science</div>
+            <p class="voice-text">
+              “Global sea ice declined 42% between 2025 and 2050. Loss patterns show acceleration along southern latitudes.”
+            </p>
+          </div>
+
+          <div class="voice-pane voice-elder">
+            <div class="voice-label">Voice 2 — Elder Story</div>
+            <p class="voice-text">
+              “When the moon is missing, the ice breaks early. The penguins know first.”
+            </p>
+          </div>
+
+          <input type="range" id="voiceMix" min="0" max="100" value="65" aria-label="Select voice emphasis"/>
+          <div class="mix-indicator">
+            <span class="mix-left">Science</span>
+            <span class="mix-right">Elder</span>
+          </div>
+        </div>
+
+        <p class="pd-choose">I hesitate. I choose the elder.</p>
+      </div>
+    </section>
+
+    
+    <section class="pd-wall">
+      <div class="ice-wall" id="iceWall" role="button" aria-label="Tap the ice wall to reveal fragments">
+        <div class="ice-grain"></div>
+        <div class="ice-shards"></div>
+        <div class="ice-ripples"></div>
+
+        <div class="pd-wall-caption">
+          <p class="elder-scene">
+            A dim shape appears in the ice: a woman sitting by a fire, her breath visible.
+          </p>
+          <p class="elder-say">
+            “We watched the sky more than the clock. One year, the stars moved too fast. We knew the sea would change.”
+          </p>
+          <p class="blend-note">
+            Her words ripple across the wall, blending with satellite charts and oceanic heat graphs.
+          </p>
+        </div>
+      </div>
+
+      <div class="pd-fragments">
+        <div class="frag-list" id="penguinFragments" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <footer class="pd-question">
+  <div class="pd-qtext" id="pdQuestion" aria-hidden="true">
+    <span class="qline">“What kind of knowing do you trust?”</span>
+  </div>
+
+  
+  <div class="next-chapter2-wrapper hidden" id="nextChapter2Wrap">
+    <button id="nextChapter2Btn" class="btn-outline-cyan">
+      Touch to next chapter
+    </button>
+  </div>
+</footer>
+  </div>
+</section>
+<section id="chapter3" class="chapter3 seal-plaza hidden" aria-label="Seal Plaza – Chapter 3">
+  <div class="sp-wrap">
+    <header class="sp-header">
+      <h2 class="sp-title">🐋 Seal Plaza – Chapter 3</h2>
+      <h3 class="sp-sub">KP-03 – Voice / Visibility / Archive</h3>
+      <p class="sp-sync">System Sync: KP-03 active.</p>
+    </header>
+<audio id="ambientAudio3" src="audio/seal.mp3" preload="auto" loop></audio>
+    <section class="sp-intro">
+      <p class="sp-lead">
+        The plaza opens like a shallow bowl. The seal lies in the middle, basking beneath a shifting sky of sound.
+        I sit near its flipper. The texture is worn, not from damage, but from listening.
+      </p>
+    </section>
+
+    
+    <section class="sp-echoes">
+      <div class="sp-tabs" role="tablist" aria-label="Echo views">
+        <button class="sp-tab is-active" data-view="top" role="tab" aria-selected="true">Top Echoes</button>
+        <button class="sp-tab" data-view="least" role="tab" aria-selected="false">Least Heard</button>
+      </div>
+
+      <div class="sp-list" id="spListTop" aria-live="polite">
+        <div class="sp-item"><span>“Today’s Top Echoes”</span></div>
+        <div class="sp-item">A poem about melting ice – 🔥 8,932 listens</div>
+        <div class="sp-item">A child’s laughter near penguins – 🧊 7,402 listens</div>
+        <div class="sp-item">A protest chant from Flood School survivors – 🌊 6,811 listens</div>
+        <button class="sp-mini link-quiet" id="viewLeastBtn">(View: Least Heard)</button>
+      </div>
+      <div class="sp-whisper hidden" id="spWhisper" aria-live="polite">
+  <p class="sp-step">I click the last one.</p>
+  <p class="sp-step">For a moment, there's silence.</p>
+  <p class="sp-step">Then a whisper:</p>
+  <p class="sp-quote">“Are you listening… or just scanning?”</p>
+      </div>
+      <div class="sp-list hidden" id="spListLeast" aria-live="polite">
+        <div class="sp-item quiet">Whale calls in low pitch (only audible to adults) – 11 listens</div>
+        <div class="sp-item quiet">A child from Zone 11: “We never had water birds.” – 9 listens</div>
+        <button class="sp-item quiet sp-pick" id="leastPick">
+          “They said my voice was too soft. But I spoke.” – 5 listens
+        </button>
+      </div>
+    </section>
+
+    
+    <section class="sp-flipper">
+      <div class="flipper-zone" id="flipperZone" role="button" aria-label="Hold to record a response" tabindex="0">
+        <div class="ripple-ring"></div>
+        <div class="flipper-shape"></div>
+        <div class="flipper-caption">
+          <p>The seal’s flipper glows faintly. I press my hand to it.</p>
+          <p class="hint">(Hold press to record a response)</p>
+        </div>
+      </div>
+
+      <div class="sp-reply">
+        <label for="replyText" class="sr">Your response</label>
+        <input id="replyText" type="text" placeholder="&quot;I'm listening,&quot; I say. &quot;I heard you.&quot;">
+        <button id="replySubmit" class="btn-amber">Store Reply</button>
+      </div>
+    </section>
+
+    
+    <section class="sp-message">
+      <button id="openMessage" class="btn-amber-outline">
+        <p>
+  <a href="popup.html" target="_blank" class="popup-link">A message appears:</a>
+</p>
+      </button>
+    </section>
+
+    <section class="sp-motion" aria-label="Seal sky memory">
+     <figure class="motion-amber">
+     <svg class="motion-amber-svg" viewBox="0 0 800 450" role="img">
+      <defs>
+        
+        <filter id="amberFlow" x="-20%" y="-20%" width="140%" height="140%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.006 0.015" numOctaves="2" seed="11"
+                        result="noise">
+            <animate attributeName="baseFrequency" dur="12s"
+                     values="0.006 0.015; 0.010 0.022; 0.006 0.015"
+                     repeatCount="indefinite"/>
+          </feTurbulence>
+          <feDisplacementMap in="SourceGraphic" in2="noise" scale="8" xChannelSelector="R" yChannelSelector="G"/>
+          <feColorMatrix type="matrix"
+            values="1 0 0 0 0
+                    0 1 0 0 0
+                    0 0 1 0 0
+                    0 0 0 1 0"/>
+          <feGaussianBlur stdDeviation="0.4"/>
+        </filter>
+
+        
+        <linearGradient id="amberTint" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%"  stop-color="#4b3a00"/>
+          <stop offset="50%" stop-color="#6a5200"/>
+          <stop offset="100%" stop-color="#3e2d00"/>
+        </linearGradient>
+      </defs>
+
+      <image href="image/3.jpg"
+             width="100%" height="100%" preserveAspectRatio="xMidYMid slice"/>
+
+  
+      <rect x="0" y="0" width="800" height="450" fill="url(#amberTint)" opacity="0.25"/>
+
+  
+      <g filter="url(#amberFlow)" opacity="0.9">
+        <image href="image/3.jpg"
+               width="100%" height="100%" preserveAspectRatio="xMidYMid slice"/>
+      </g>
+    </svg>
+    <figcaption class="motion-amber-cap">Echo surface (procedural)</figcaption>
+  </figure>
+</section>
+   
+    <footer class="sp-next">
+      <button id="nextChapter3Btn" class="btn-amber-strong">Touch to next chapter</button>
+    </footer>
+  </div>
+</section>
+
+
+<section id="chapter4" class="chapter4 seal-finale hidden" aria-label="Final Chapter – More Than a Moment">
+  <div class="fc-wrap">
+    <header class="fc-header">
+  <h2 class="fc-title">Final Chapter – More Than a Moment</h2>
+  <p class="fc-sync">System Sync: Session Ending</p>
+
+  
+</header>
+
+    
+    <section class="fc-icons" aria-label="Visited narratives">
+      <div class="fc-icon-grid">
+        <div class="fc-icon"><span class="em">🦝</span><span class="tx">Red Panda – Memory / Disappearance</span></div>
+        <div class="fc-icon"><span class="em">🐧</span><span class="tx">Penguin – Ice / Perception</span></div>
+        <div class="fc-icon"><span class="em">🐋</span><span class="tx">Seal – Voice / Visibility</span></div>
+      </div>
+      <p class="fc-report">“Mei. You have touched <strong>3</strong> narratives. You’ve contributed <strong>1</strong> response.”</p>
+    </section>
+
+    
+    <section class="fc-offer" aria-label="Leave something behind">
+      <h3 class="fc-q">Would you like to leave something behind?</h3>
+      <div class="fc-inputs">
+        <textarea id="finalNote" rows="3" placeholder="Say something… (text)"></textarea>
+        <div class="fc-upload">
+          <label class="btn-amber-outline">
+            Upload voice
+            <input id="finalVoice" type="file" accept="audio/*" hidden>
+          </label>
+          <button id="finalSubmit" class="btn-amber">Submit</button>
+        </div>
+      </div>
+    </section>
+
+   
+    <section class="fc-float" aria-live="polite">
+      <div id="floatPanel" class="float-panel" role="button" tabindex="0" aria-label="Tap to settle">
+        <p class="fp-line">I whisper again:</p>
+        <p class="fp-quote">“I don’t know what matters yet. But I’m still listening.”</p>
+        <p class="fp-line">The wall shimmers.</p>
+        <p class="fp-line">“Your uncertainty has been archived.”</p>
+        <p class="fp-line">Then a soft reply:</p>
+        <p class="fp-quote">“You are not alone in it.”</p>
+        <p class="fp-line">I begin to walk away. Behind me, the surfaces fade.</p>
+        <p class="fp-line">But something follows me—a low resonance. A memory not mine, but not entirely foreign.</p>
+      </div>
+    </section>
+
+    
+    <section class="fc-closing">
+      <div id="closingCard" class="closing-card hidden">
+        <p class="cl-line">This session has ended.</p>
+        <p class="cl-line">But the archive breathes.</p>
+        <p class="cl-line">Come back when your questions grow louder.</p>
+      </div>
+    </section>
+
+    <video id="finalVideo2"
+       src="video/111.mov"
+       playsinline
+       muted
+       autoplay
+       loop
+       controls
+       preload="auto"
+       style="width:100%;height:auto;display:block;margin:.8rem 0 1rem;"></video>
+
+    <footer class="fc-end">
+      <button id="restartBtn" class="btn-purple-strong">Return to Start</button>
+    </footer>
+
+    
+    <div id="finalCurtain" class="final-curtain hidden" aria-hidden="true"></div>
+  </div>
+</section>
+
+
+  <script src="java.js"></script>
+</body>
+</html>
